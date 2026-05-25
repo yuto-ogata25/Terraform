@@ -3,10 +3,13 @@ provider "aws" {
 }
 
 # Auroraを配置するVPC
+# 検証環境は本番と分離することでterraform destroyで安全に全消しできる
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true  # DNS解決を有効にする
+  enable_dns_hostnames = true  # DNSホスト名を有効にする（Aurora接続に必要）
   tags = {
-    Name = "${var.env}-aurora-vpc"
+    Name = "${local.name_prefix}-aurora-vpc"
   }
 }
 
@@ -123,13 +126,13 @@ resource "aws_db_subnet_group" "main" {
 resource "aws_rds_cluster" "main" {
   cluster_identifier      = "${var.env}-aurora-cluster"
   engine                  = "aurora-mysql"
-  engine_version          = "8.0.mysql_aurora.3.05.2"
+  engine_version          = "8.0.mysql_aurora.3.04.1"
   database_name           = "handson"
   master_username         = "admin"
   master_password         = var.db_password
   db_subnet_group_name    = aws_db_subnet_group.main.name
   skip_final_snapshot     = local.skip_final_snapshot
-  deletion_protection     = locals.deletion_protection
+  deletion_protection     = local.deletion_protection
   tags = {
     Name = "${var.env}-aurora-cluster"
   }
