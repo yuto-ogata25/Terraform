@@ -1,0 +1,21 @@
+# ==============================================================================
+# terraform.tfvars（このファイルをコピーして terraform.tfvars にリネームして使う）
+# ==============================================================================
+# 使い方:
+#   cp terraform.tfvars.example terraform.tfvars
+#   vim terraform.tfvars  # 自分の値に書き換える
+
+# AWSリージョン
+region = "ap-northeast-1"
+
+# 自分のグローバルIP（SSH接続許可用）
+# 確認方法: ブラウザで https://checkip.amazonaws.com/ にアクセス
+# 末尾に /32 を忘れずに！
+my_ip = "xxx.xxx.xxx.xxx/32"
+
+# EC2キーペア名（AWSコンソールで事前に作成しておく）
+key_name = "your-key-name"
+
+# VPCエンドポイント作成フラグ
+# 最初は false で apply → 検証後に true に変更して再 apply
+create_endpoint = false
