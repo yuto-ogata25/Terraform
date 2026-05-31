@@ -1,0 +1,11 @@
+aws_region  = "ap-northeast-1" # AWSリージョンを入れる（例: ap-northeast-1, us-east-1など）
+
+aws_profile = "your-aws-cli-profile-name" # AWS CLIのプロファイル名を入れる（例: default, dev01など）
+
+env     = "dev" # 環境名を入れる（例: dev, stg, prodなど）
+
+project = "your-project-name" # プロジェクト名を入れる（リソース名のprefixに使う）
+
+my_ip = "xxx.xxx.xx.xxx" # 自分のグローバルIPアドレスを入れる
+
+key_name = "your-ec2-key-pair-name" # AWSコンソールで事前に作成しておいたEC2キーペア名を入れる  
