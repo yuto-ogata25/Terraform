@@ -14,3 +14,8 @@ output "private_subnet_id" {
   description = "プライベートサブネットID（VPCオリジン化でEC2を移す先）"
   value       = aws_subnet.private.id
 }
+
+output "web_private_instance_id" {
+  description = "プライベート配置EC2のID（VPCオリジンのオリジンに指定する）"
+  value       = aws_instance.web_private.id
+}

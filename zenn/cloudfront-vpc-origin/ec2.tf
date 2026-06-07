@@ -67,6 +67,7 @@ data "aws_ami" "al2023" {
   }
 }
 
+# Before：パブリック配置のEC2（従来方式のオリジン）。検証中はそのまま残す。
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.al2023.id
   instance_type          = "t3.micro"
@@ -86,5 +87,22 @@ resource "aws_instance" "web" {
 
   tags = {
     Name = "${local.prefix}-web01"
+  }
+}
+
+# After：プライベート配置のEC2（VPCオリジンのオリジン）。
+# 既存のパブリックEC2をAMI化したイメージから起動するので、
+# Nginxは焼き込み済み＝インターネット経路（NAT等）が不要。
+# Beforeと並行稼働させ、VPCオリジン切替の確認が済んだらBefore側を削除する。
+resource "aws_instance" "web_private" {
+  ami                         = var.web_ami_id
+  instance_type               = "t3.micro"
+  subnet_id                   = aws_subnet.private.id
+  associate_public_ip_address = false
+  vpc_security_group_ids      = [aws_security_group.ec2.id]
+  iam_instance_profile        = aws_iam_instance_profile.ec2.name
+
+  tags = {
+    Name = "${local.prefix}-web01-private"
   }
 }
