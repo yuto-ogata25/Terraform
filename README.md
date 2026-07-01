@@ -1,7 +1,6 @@
 # Terraform
 
 AWSインフラを Terraform で構築・検証するリポジトリ。
-ハンズオンの写経ではなく、自分で構成を考えて手を動かし、
 実際に動作を確認したものだけを置いています。
 
 ## このリポジトリでやっていること
@@ -15,9 +14,7 @@ AWSインフラを Terraform で構築・検証するリポジトリ。
 - aurora-failover
 - cloudfront-vpc-origin
 - ec2-ssh
-
-##　検証中・調整中
-- azure-snapshot
+- azure-VM
 
 ## AWS用テンプレート
 - _template

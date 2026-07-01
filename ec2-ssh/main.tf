@@ -103,6 +103,6 @@ resource "aws_instance" "ssh" {
   vpc_security_group_ids = [aws_security_group.ssh.id]
   key_name      = var.key_name
   tags = {
-    Name = "${local.name_prefix}-ssh-ec2"
+    Name = "${local.name_prefix}-ec2"
   }
 }
